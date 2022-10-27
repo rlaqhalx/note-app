@@ -4,7 +4,7 @@
 
 Simple note-taking application with React
 
-Deployed version: 
+Deployed version: https://rlaqhalx.github.io/note-app/
 
 ## Description 
 
