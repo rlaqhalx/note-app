@@ -5,8 +5,7 @@ import Edit from "./pages/Edit";
 import Home from "./pages/Home";
 import Debug from "debug";
 import NotFound from "./pages/NotFound";
-// import { useMantineColorScheme } from "@mantine/core";
-import { MantineProvider } from "@mantine/core";
+import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
 
 const debug = new Debug("quick:App.jsx");
 
@@ -14,22 +13,23 @@ function App() {
   const [notes, setNotes] = useState([]);
   const [query, setQuery] = useState("");
 
-  const [mode, setMode] = useState('dark');
+  const [colorScheme, setColorScheme] = useState("light");
 
-  const toggleColorScheme = () => {
-    mode  === 'dark' ? setMode('light') : setMode('dark');
+  const toggleColorScheme = (value) => {
+    setColorScheme(value || (colorScheme === "dark"? "light" : "dark"));
   }
   
   useEffect(() => {
-    setMode(window.localStorage.getItem("mode"));
+    setColorScheme(window.localStorage.getItem("mode"));
   }, []);
 
   useEffect(() => {
-    window.localStorage.setItem("mode", mode)
-  },[mode])
+    window.localStorage.setItem("mode", colorScheme)
+  },[colorScheme])
+  
 
   useEffect(() => {
-    const fakeNotes = [];
+    // const fakeNotes = [];
     // for (let index = 0; index < 5; index++) {
     //   fakeNotes.push({
     //     id: faker.datatype.uuid(),
@@ -94,26 +94,27 @@ function App() {
   };
 
   return (
-    <MantineProvider withGlobalStyles withNormalizeCSS theme={{colorScheme: mode}}>
-      <Routes>
-          <Route
-            path="/"
-            element={
-                <Home
-                  notes={notes}
-                  query={query}
-                  setQuery={setQuery}
-                  add={add}
-                  remove={remove}
-                  toggleColorScheme= {toggleColorScheme}
-                  mode = {mode}
-                />
-            }
-          />
-        <Route path="/edit" element={<Edit edit={edit} remove={remove} />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </MantineProvider>
+    <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+      <MantineProvider theme={{colorScheme}} withGlobalStyles withNormalizeCSS>
+        <Routes>
+            <Route
+              path="/"
+              element={
+                  <Home
+                    notes={notes}
+                    query={query}
+                    setQuery={setQuery}
+                    add={add}
+                    remove={remove}
+                    toggleColorScheme= {toggleColorScheme}
+                  />
+              }
+            />
+          <Route path="/edit" element={<Edit edit={edit} remove={remove} />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </MantineProvider>
+    </ColorSchemeProvider>
 
   );
 }

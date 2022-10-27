@@ -1,5 +1,5 @@
 import { IconNote } from "@tabler/icons";
-import { Grid, Button, ColorSchemeProvider, MantineProvider } from "@mantine/core";
+import { Grid, Button, Group } from "@mantine/core";
 import Search from "./Search";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import LightModeButton from "./LightModeButton";
 
 
 function Header(props) {
-  const { query, setQuery, add, toggleColorScheme, mode } = props;
+  const { query, setQuery, add } = props;
   const navigate = useNavigate();
   
   const handleOnClick = () => {
@@ -22,7 +22,9 @@ function Header(props) {
         <Search query={query} setQuery={setQuery} />
       </Grid.Col>
 
-      <Grid.Col span={2}>
+      <Grid.Col span={3}>
+        <Group position="right">
+
         <Button
           onClick={handleOnClick}
           fullWidth
@@ -31,14 +33,9 @@ function Header(props) {
         >
           Add Note
         </Button>
+         <LightModeButton />
+        </Group>
       </Grid.Col>
-
-      <Grid.Col span= {1} > 
-      <ColorSchemeProvider>
-         <LightModeButton toggleColorScheme={toggleColorScheme} mode = {mode}/>
-      </ColorSchemeProvider>
-      </Grid.Col>
-
     </Grid>
   );
 }
@@ -49,6 +46,4 @@ Header.propTypes = {
   query: PropTypes.string,
   setQuery: PropTypes.func,
   add: PropTypes.func,
-  toggleColorScheme: PropTypes.func,
-  mode: PropTypes.string,
 };

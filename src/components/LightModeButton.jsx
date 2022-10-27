@@ -1,30 +1,17 @@
 import { ActionIcon, useMantineColorScheme } from '@mantine/core';
 import { IconSun, IconMoonStars } from '@tabler/icons';
 
-function LightModeButton(props) {
+function LightModeButton() {
 
-const {toggleColorScheme, mode} = props;
-  //const { colorScheme } = useMantineColorScheme();
-  //const dark = colorScheme === 'dark';
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   
-  let icon = false;
-
-  if (mode == "dark") {
-    icon = false;
-  } else {
-    icon = true;
-  }
-
-
   return (
-    <ActionIcon
-      variant="outline"
-      color={icon ? 'yellow' : 'blue'}
-      onClick={() => toggleColorScheme()}
-      title="Toggle color scheme"
-    >
-      {icon ? <IconSun size={18} /> : <IconMoonStars size={18} />}
-
+    <ActionIcon variant="default" onClick={() => toggleColorScheme()} size={30}>
+      {colorScheme === "dark" ? (
+        <IconSun size={16} />
+      ) : (
+        <IconMoonStars size={16} />
+      )}
     </ActionIcon>
   );
 }
