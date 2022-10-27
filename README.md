@@ -1,5 +1,7 @@
 # Note App
 
+** currently working on it 
+
 Simple note-taking application with React
 
 Deployed version: 
