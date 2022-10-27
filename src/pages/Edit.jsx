@@ -1,5 +1,5 @@
 import { Button, Container, Group, Stack } from "@mantine/core";
-import { TextInput, Textarea } from "@mantine/core";
+import { TextInput } from "@mantine/core";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -13,10 +13,8 @@ function Edit(props) {
 
   const [id, setId] = useState("");
   const [title, setTitle] = useState("");
-  // const [text, setText] = useState("");
+  const [text, setText] = useState("");
   const [mode, setMode] = useState("");
-
-  const [value, onChange] = useState('hi');
 
   useEffect(() => {
     // prevent directly going to edit - no props being sent 
@@ -24,11 +22,15 @@ function Edit(props) {
     if (location.state == null) {
       navigate("/", {replace: true})
     } else {
-      setId(location.state.id);
-      setTitle(location.state.title);
-      // setText(location.state.text);
-      setMode(location.state.mode);
-      onChange(location.state.text);
+      // setId(location.state.id);
+      // setTitle(location.state.title);
+      // setMode(location.state.mode);
+      // onChange(location.state.text);
+
+      location.state.id !== id && setId(location.state.id);
+      location.state.title !== title && setTitle(location.state.title);
+      location.state.text !== text && setText(location.state.text);
+      location.state.mode !== mode && setMode(location.state.mode);
      }
   }, [location.state]);
 
@@ -36,12 +38,8 @@ function Edit(props) {
     setTitle(event.target.value);
   };
 
-  // const handleTextChange = (event) => {
-  //   setText(event.target.value);
-  // };
-
   const handleSave = () => {
-    edit(id, title, value);
+    edit(id, title, text);
     navigate("/", { replace: true });
   };
 
@@ -64,8 +62,10 @@ function Edit(props) {
         />
        
         <RichTextEditor
-          value = {value}
-          onChange={onChange}
+          if="rte"
+          defaultValue={"Your note's text"}
+          value={text}
+          onChange={setText}
         />
 
         <Group position="center" spacing="xl" grow>

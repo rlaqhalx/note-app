@@ -20,11 +20,11 @@ function App() {
   }
   
   useEffect(() => {
-    setColorScheme(window.localStorage.getItem("mode"));
+    setColorScheme(window.localStorage.getItem("light"));
   }, []);
 
   useEffect(() => {
-    window.localStorage.setItem("mode", colorScheme)
+    window.localStorage.setItem("light", colorScheme)
   },[colorScheme])
   
 
@@ -70,8 +70,8 @@ function App() {
     const note = {
       // added id -> individual note different id
       id: faker.datatype.uuid(),
-      title: "New note title",
-      text: "New note text",
+      title: "",
+      text: "",
     };
 
     setNotes((notes) => [...notes, note]);

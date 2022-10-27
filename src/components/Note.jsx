@@ -6,12 +6,13 @@ function Note(props) {
   const { note, remove } = props;
 
 
-
   return (
     // change value = {note.title} -> {note.id}
     <Accordion.Item value={note.id}>
       <NoteControl note={note} remove={remove} />
-      <Accordion.Panel>{note.text.replace(/<[^>]*>?/gm, '')}</Accordion.Panel>
+      <Accordion.Panel>
+        <div dangerouslySetInnerHTML={{ __html: note.text }}></div>
+      </Accordion.Panel>  
     </Accordion.Item>
   );
 }
