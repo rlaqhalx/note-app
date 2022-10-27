@@ -17,7 +17,7 @@ function Header(props) {
 
 
   return (
-    <Grid>
+    <Grid style={{paddingTop: 50}}>
       <Grid.Col span={9}>
         <Search query={query} setQuery={setQuery} />
       </Grid.Col>
