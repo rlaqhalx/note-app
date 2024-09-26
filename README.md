@@ -1,7 +1,5 @@
 # Note App
 
-** currently working on it 
-
 Simple note-taking application with React
 
 Deployed version: https://rlaqhalx.github.io/note-app/
